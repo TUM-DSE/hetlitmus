@@ -41,6 +41,13 @@ python3 hetlitmus/campaign.py --corpus $RESULTS/emit --budget-runs 100 --state $
 For HIP, run `probe-hip.sh` instead of `probe-cuda.sh`, and `emit-het.sh --gpu-target hip` on the
 `het-x86_64` tree.
 
+### DGX Spark results
+
+[runbook.sh](https://github.com/TUM-DSE/hetlitmus/blob/main/hetlitmus/device-runs/gb10/runbook.sh)
+lists the steps that reproduce the DGX Spark results. For a run on another CPU-GPU system, keep the
+order of the steps and adapt the commands. The raw data is in
+[hetlitmus-gb10-run-data](https://github.com/lenguyenhcm325/hetlitmus-gb10-run-data).
+
 ## Corpora
 
 | Tree | Tests | Rule |
