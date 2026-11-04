@@ -1,65 +1,34 @@
 # HetLitmus
 
-[![hetlitmus CI](https://github.com/lenguyenhcm325/herdtools7/actions/workflows/hetlitmus-ci.yml/badge.svg?branch=hetlitmus-work)](https://github.com/lenguyenhcm325/herdtools7/actions/workflows/hetlitmus-ci.yml)
+[![Website](https://img.shields.io/badge/Website-tum--dse.github.io%2Fhetlitmus-2f6fed?style=for-the-badge)](https://tum-dse.github.io/hetlitmus/)
+[![User guide](https://img.shields.io/badge/User_guide-555?style=for-the-badge)](https://tum-dse.github.io/hetlitmus/guide/)
+[![Reference](https://img.shields.io/badge/Reference-555?style=for-the-badge)](https://tum-dse.github.io/hetlitmus/reference/)
+[![Quick start](https://img.shields.io/badge/Quick_start-555?style=for-the-badge)](https://tum-dse.github.io/hetlitmus/getting-started/quick-start/)
 
-HetLitmus extends the [herdtools7](https://github.com/herd/herdtools7) litmus-testing suite so that
-one heterogeneous CPU+GPU litmus test is generated, compiled and run on real hardware. The CPU side
-is AArch64 or x86_64 assembly. The GPU side is the scoped Bell/LISA frontend, rendered to CUDA for NVIDIA or HIP for AMD.
+HetLitmus extends the [herdtools7](https://github.com/herd/herdtools7) litmus-testing suite to
+generate, compile and run heterogeneous CPU-GPU litmus tests on real hardware. For each test
+shape, it generates all distinct variants across device placements, scopes and memory orders. It
+comes with 10,979 ready-made CPU-GPU tests across 29 shapes. The CPU side is AArch64 or x86_64, and
+the GPU side compiles to CUDA for NVIDIA or HIP for AMD.
 
-## Run environment
+## Architecture
 
-```
-  host (CPU)                                     device (GPU, persistent grid)
-  ┌────────────────────────────┐                 ┌────────────────────────────┐
-  │ test threads               │◀─ rendezvous ─▶│ test blocks                │
-  │  one pthread per cpu proc, │   counter,      │  one thread per gpu proc,  │
-  │  pinned to its own core    │   every iter    │  each in its own block     │
-  ├────────────────────────────┤                 ├────────────────────────────┤
-  │ stress threads             │                 │ stress blocks              │
-  ├────────────────────────────┤                 ├────────────────────────────┤
-  │ noise threads              │                 │ noise blocks               │
-  └──────────────┬─────────────┘                 └──────────────┬─────────────┘
-                 │                 interconnect                 │
-  ┌──────────────┴──────────────────────────────────────────────┴───────────┐
-  │ shared memory: test locations, rendezvous counter, readback slots       │
-  ├─────────────────────────────────────────────────────────────────────────┤
-  │ noise buffer, above the last-level cache, streamed by both sides        │
-  └─────────────────────────────────────────────────────────────────────────┘
-```
-
-## Run on hardware
-
-```
-make all
-export RESULTS=hetlitmus/run-out/<tag>
-sh hetlitmus/probe-cuda.sh
-hetlitmus/emit-het.sh --gpu-target cuda _build/default/hetlitmus/tests/het
-hetlitmus/build.sh $RESULTS/emit
-python3 hetlitmus/campaign.py --corpus $RESULTS/emit --budget-runs 100 --state $RESULTS/campaign.csv
-```
-
-For HIP, run `probe-hip.sh` instead of `probe-cuda.sh`, and `emit-het.sh --gpu-target hip` on the
-`het-x86_64` tree.
-
-### DGX Spark results
-
-[runbook.sh](https://github.com/TUM-DSE/hetlitmus/blob/main/hetlitmus/device-runs/gb10/runbook.sh)
-lists the steps that reproduce the DGX Spark results. For a run on another CPU-GPU system, keep the
-order of the steps and adapt the commands. The raw data is in
-[hetlitmus-gb10-run-data](https://github.com/lenguyenhcm325/hetlitmus-gb10-run-data).
+![Test program architecture: CPU threads and GPU blocks and the memory each one accesses](hetlitmus/architecture.svg)
 
 ## Corpora
 
-| Tree | Tests | Rule |
+| Corpus | Tests | Enumeration |
 |---|---|---|
-| `het` | 6923 | shape × device cut × GPU scope × GPU order × CPU order, AArch64 CPU column |
-| `het-x86_64` | 4056 | shape × device cut × GPU scope × GPU order × CPU order, x86_64 CPU column |
-| `gpu-only` | 771 | shape × GPU scope × GPU order, every proc on the GPU |
+| CPU-GPU with AArch64 CPU side | 6,923 | shape × device cut × GPU scope × GPU order × CPU order |
+| CPU-GPU with x86_64 CPU side | 4,056 | the same enumeration |
+| GPU only | 771 | shape × GPU scope × GPU order |
 
-## Documentation
+## DGX Spark results
 
-- [hetlitmus/docs/README.md](hetlitmus/docs/README.md)
-- [hetlitmus/docs/REFERENCES.md](hetlitmus/docs/REFERENCES.md)
+[runbook.sh](https://github.com/TUM-DSE/hetlitmus/blob/main/hetlitmus/device-runs/gb10/runbook.sh)
+lists the steps that reproduce the DGX Spark results reported in the thesis. For a run on another CPU-GPU system, keep the
+order of the steps and adapt the commands. The raw data is in
+[hetlitmus-gb10-run-data](https://github.com/lenguyenhcm325/hetlitmus-gb10-run-data).
 
 ## Upstream and license
 

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1010 545" role="img" aria-labelledby="hl-arch-title">
+  <style>
+    svg { color: #1f2328; font-family: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+    @media (prefers-color-scheme: dark) { svg { color: #e6edf3; } }
+    text { fill: currentColor; font-size: 14px; text-anchor: middle; dominant-baseline: central; }
+    .title { font-size: 15px; font-weight: 700; }
+    .op { font-size: 12px; }
+    .start { text-anchor: start; }
+    .note { font-style: italic; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .node { fill: none; stroke: currentColor; stroke-width: 1.2; }
+    .group { fill: none; stroke: currentColor; stroke-width: 2; }
+    .dash { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 6 4; }
+    .arrow { fill: none; stroke: currentColor; stroke-width: 1.5; }
+  </style>
+  <title id="hl-arch-title">Test program architecture: CPU threads and GPU blocks and the memory each one accesses</title>
+  <defs>
+    <marker id="hl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <!-- interconnect noise -->
+  <rect class="dash" x="22" y="226" width="952" height="76"/>
+  <text class="note" x="500" y="322">interconnect noise</text>
+  <!-- containers -->
+  <rect class="group" x="10" y="38" width="230" height="490"/>
+  <rect class="group" x="370" y="38" width="260" height="256"/>
+  <rect class="group" x="760" y="38" width="240" height="490"/>
+  <text class="title" x="125" y="24">CPU: pinned threads</text>
+  <text class="title" x="500" y="24">shared system memory</text>
+  <text class="title" x="880" y="24">GPU: one cooperative launch</text>
+  <!-- CPU side -->
+  <rect class="node" x="35" y="110" width="170" height="50"/>
+  <text x="120" y="127">test threads</text>
+  <text x="120" y="146">(<tspan class="mono">P0</tspan> …)</text>
+  <rect class="node" x="35" y="240" width="170" height="40"/>
+  <text x="120" y="261">noise threads</text>
+  <rect class="node" x="35" y="360" width="170" height="50"/>
+  <text x="120" y="377">stress threads</text>
+  <text x="120" y="396">(remaining cores)</text>
+  <rect class="node" x="35" y="460" width="170" height="40" rx="6"/>
+  <text x="120" y="481">CPU scratchpad</text>
+  <!-- shared memory -->
+  <rect class="node" x="390" y="68" width="220" height="50" rx="6"/>
+  <text x="500" y="85">test locations</text>
+  <text x="500" y="104">(slot <tspan font-style="italic">n</tspan> in iteration <tspan font-style="italic">n</tspan>)</text>
+  <rect class="node" x="390" y="140" width="220" height="50" rx="6"/>
+  <text x="500" y="157">rendezvous counter</text>
+  <text x="500" y="176">(wait for all participants)</text>
+  <rect class="node" x="390" y="240" width="220" height="40" rx="6"/>
+  <text x="500" y="261">noise buffer</text>
+  <!-- GPU side -->
+  <rect class="node" x="795" y="110" width="170" height="50"/>
+  <text x="880" y="127">test blocks</text>
+  <text x="880" y="146">(<tspan class="mono">P1</tspan> …)</text>
+  <rect class="node" x="795" y="240" width="170" height="40"/>
+  <text x="880" y="261">noise blocks</text>
+  <rect class="node" x="795" y="360" width="170" height="50"/>
+  <text x="880" y="377">stress blocks</text>
+  <text x="880" y="396">(remaining blocks)</text>
+  <rect class="node" x="795" y="460" width="170" height="40" rx="6"/>
+  <text x="880" y="481">GPU scratchpad</text>
+  <!-- iteration loops -->
+  <path class="arrow" d="M140,110 C140,84 100,84 100,107" marker-end="url(#hl-arrow)"/>
+  <text class="op" x="120" y="74">100,000 iterations</text>
+  <path class="arrow" d="M900,110 C900,84 860,84 860,107" marker-end="url(#hl-arrow)"/>
+  <text class="op" x="880" y="74">100,000 iterations</text>
+  <!-- test accesses -->
+  <line class="arrow" x1="207" y1="135" x2="388" y2="93" marker-start="url(#hl-arrow)" marker-end="url(#hl-arrow)"/>
+  <text class="op" transform="translate(297,106) rotate(-13)">preload, access</text>
+  <line class="arrow" x1="207" y1="135" x2="388" y2="165" marker-start="url(#hl-arrow)" marker-end="url(#hl-arrow)"/>
+  <text class="op" transform="translate(297,164) rotate(9.4)">fetch_add, poll</text>
+  <line class="arrow" x1="612" y1="93" x2="793" y2="135" marker-start="url(#hl-arrow)" marker-end="url(#hl-arrow)"/>
+  <text class="op" transform="translate(703,106) rotate(13)">access</text>
+  <line class="arrow" x1="612" y1="165" x2="793" y2="135" marker-start="url(#hl-arrow)" marker-end="url(#hl-arrow)"/>
+  <text class="op" transform="translate(703,164) rotate(-9.4)">fetch_add, poll</text>
+  <!-- noise -->
+  <line class="arrow" x1="390" y1="260" x2="208" y2="260" marker-end="url(#hl-arrow)"/>
+  <text class="op" x="299" y="250">stream read</text>
+  <line class="arrow" x1="610" y1="260" x2="792" y2="260" marker-end="url(#hl-arrow)"/>
+  <text class="op" x="701" y="250">stream read</text>
+  <!-- stress -->
+  <line class="arrow" x1="120" y1="412" x2="120" y2="458" marker-start="url(#hl-arrow)" marker-end="url(#hl-arrow)"/>
+  <text class="op start" x="130" y="436">load/store pairs</text>
+  <line class="arrow" x1="880" y1="412" x2="880" y2="458" marker-start="url(#hl-arrow)" marker-end="url(#hl-arrow)"/>
+  <text class="op start" x="890" y="436">load/store pairs</text>
+  <!-- GPU pre-stress -->
+  <path class="arrow" d="M965,135 H982 V480 H968" marker-end="url(#hl-arrow)"/>
+  <text class="op" transform="translate(992,308) rotate(90)">pre-stress</text>
+</svg>
