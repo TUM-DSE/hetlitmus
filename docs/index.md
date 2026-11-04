@@ -1,5 +1,5 @@
 ---
-title: HetLitmus
+title: Home
 hide:
   - navigation
   - toc

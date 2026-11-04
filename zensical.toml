@@ -34,6 +34,7 @@ nav = [
 ]
 
 [project.theme]
+favicon = "assets/favicon.svg"
 language = "en"
 features = [
   "content.code.annotate",
@@ -58,18 +59,18 @@ logo = "lucide/cpu"
 repo = "fontawesome/brands/github"
 
 [[project.theme.palette]]
-scheme = "default"
-primary = "custom"
-accent = "custom"
-toggle.icon = "lucide/moon"
-toggle.name = "Switch to dark mode"
-
-[[project.theme.palette]]
 scheme = "slate"
 primary = "custom"
 accent = "custom"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to dark mode"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
