@@ -1,35 +1,16 @@
 # Running on hardware
 
 A campaign runs every test program of a corpus until it either sees the test's weak outcome or reaches a
-run budget. Use these commands:
+run budget. First [compile the corpus](compiling-tests.md#compiling-a-whole-corpus), then run:
 
 ```bash
-make all
-export RESULTS=hetlitmus/run-out/<tag>
-sh hetlitmus/probe-cuda.sh
-hetlitmus/emit-het.sh --gpu-target cuda _build/default/hetlitmus/tests/het
-hetlitmus/build.sh $RESULTS/emit
 python3 hetlitmus/campaign.py --corpus $RESULTS/emit --budget-runs 100 --state $RESULTS/campaign.csv
 ```
 
 Optionally, the stress parameters can be tuned before the campaign, since the values that work
 best differ between machines. See [Tuning stress parameters](tuning-stress.md).
 
-For AMD, run `probe-hip.sh` and `emit-het.sh --gpu-target hip`. Use the `het` corpus on an
-AArch64 host and `het-x86_64` on an x86_64 host.
-
-## 1. Probe
-
-`probe-cuda.sh` records the GPU, its suggested architecture and the memory attributes that decide
-how CPU and GPU share memory. `build.sh` uses that architecture unless you pass `--arch`.
-
-## 2. Emit and build
-
-`emit-het.sh` runs `litmus7` once per test into `$RESULTS/emit`. `build.sh` runs `make clean` and
-the link target in every test program directory. Both take `--tests` with a comma-separated list or a
-file of names to work on a subset.
-
-## 3. Run a campaign
+## Campaign results
 
 `campaign.py` invokes each test program repeatedly. One invocation performs 10 runs of 100,000
 iterations. A test stops as soon as one clean run shows the weak outcome, or when it reaches

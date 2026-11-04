@@ -11,20 +11,20 @@
 
     Writing a cycle once per device and placing procs on the CPU or the GPU with `hetgen7`.
 
+-   __[Test corpora](corpora.md)__
+
+    The three generated corpora, how test names are built, and how to add a shape.
+
 -   __[Compiling tests](compiling-tests.md)__
 
-    Turning a test into a CUDA or HIP test program directory with `litmus7`, and building it.
+    Turning a test or a whole corpus into CUDA or HIP test programs, and building them.
 
 -   __[Running on hardware](running-on-hardware.md)__
 
-    Probing a machine, running a campaign over a corpus, and reading the output.
+    Running a campaign over a corpus and reading the output.
 
 -   __[Tuning stress parameters](tuning-stress.md)__
 
     Searching for the stress parameters that make weak outcomes appear on a machine.
-
--   __[Test corpora](corpora.md)__
-
-    The three generated corpora, how test names are built, and how to add a shape.
 
 </div>

@@ -14,7 +14,8 @@ Complete option lists for the HetLitmus command-line tools and scripts.
 
 -   __[Scripts](scripts.md)__
 
-    [`probe-*.sh`](scripts.md#probe-cudash), [`emit-het.sh`](scripts.md#emit-hetsh),
+    [`probe-cuda.sh`](scripts.md#probe-cudash), [`probe-hip.sh`](scripts.md#probe-hipsh),
+    [`emit-het.sh`](scripts.md#emit-hetsh),
     [`build.sh`](scripts.md#buildsh), [`campaign.py`](scripts.md#campaignpy).
 
 -   __[Runtime settings](runtime-settings.md)__

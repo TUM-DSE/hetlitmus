@@ -51,7 +51,7 @@ FLAGS=$(grep -v '^#' $RESULTS/tune/winner-<i>.params | tr '\n' ' ')
 NVCC="nvcc $FLAGS" hetlitmus/build.sh $RESULTS/emit
 ```
 
-Then [run the campaign](running-on-hardware.md#3-run-a-campaign) as usual. With several winners,
+Then [run the campaign](running-on-hardware.md) as usual. With several winners,
 build and run once per winner, each time only on the tests that earlier passes did not reveal, as
 the [DGX Spark runbook](https://github.com/TUM-DSE/hetlitmus/blob/main/hetlitmus/device-runs/gb10/runbook.sh)
 does.

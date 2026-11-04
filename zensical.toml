@@ -17,10 +17,10 @@ nav = [
     "guide/index.md",
     "guide/test-format.md",
     "guide/generating-tests.md",
+    "guide/corpora.md",
     "guide/compiling-tests.md",
     "guide/running-on-hardware.md",
     "guide/tuning-stress.md",
-    "guide/corpora.md",
   ] },
   { "Architecture" = "architecture.md" },
   { "Reference" = [

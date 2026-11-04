@@ -32,7 +32,8 @@ Multi-vendor support with CUDA for NVIDIA and HIP for AMD.
 
     ---
 
-    Describe a new test as a [relaxation cycle](guide/generating-tests.md#cycles) and HetLitmus generates it.
+    For a test outside the ready-made set, describe it as a
+    [relaxation cycle](guide/generating-tests.md#cycles) and HetLitmus generates it.
 
     [:octicons-arrow-right-24: Generating tests](guide/generating-tests.md)
 
@@ -54,11 +55,20 @@ Multi-vendor support with CUDA for NVIDIA and HIP for AMD.
 
 </div>
 
+<div class="hl-split" markdown>
+
 ## Why HetLitmus?
 
-Hardware-coherent CPU-GPU systems such as NVIDIA GH200 and AMD MI300A let CPU and GPU threads
+<div markdown>
+
+Hardware-coherent systems such as NVIDIA GH200 and AMD Instinct MI300A let CPU and GPU threads
 share memory, yet the memory-consistency guarantees across the two devices remain unclear.
-Litmus testing is an established approach to observing weak memory behaviour empirically on real
-hardware.
+
+HetLitmus extends litmus testing, an established approach to observing weak memory behaviour on
+real hardware, to CPU-GPU systems.
+
+</div>
+
+</div>
 
 [Walk through an example :octicons-arrow-right-24:](getting-started/quick-start.md){ .md-button .hl-walk }

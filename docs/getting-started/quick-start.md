@@ -6,9 +6,10 @@ NVIDIA GPU.
 
 !!! info ""
 
-    This page runs one test by hand to introduce the concepts, so the commands are long. For regular use,
-    HetLitmus provides scripts that generate, compile and run whole test families on a device. See
-    [Running on hardware](../guide/running-on-hardware.md).
+    This page runs one test by hand to introduce the concepts. For regular use with many tests,
+    HetLitmus provides ready-made test corpora and scripts that compile and run them on a device. See
+    [Test corpora](../guide/corpora.md), [Compiling a whole corpus](../guide/compiling-tests.md#compiling-a-whole-corpus)
+    and [Running on hardware](../guide/running-on-hardware.md).
 
 Run the commands from the repository root, after [installation](installation.md).
 

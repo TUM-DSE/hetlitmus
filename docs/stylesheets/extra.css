@@ -170,5 +170,39 @@
   mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>') center / contain no-repeat;
 }
 .md-typeset .hl-walk {
-  margin-top: 1rem;
+  margin-top: 0.6rem;
+  padding: 0.55em 1.6em;
+  font-size: 0.85rem;
+}
+.md-source__facts {
+  display: none;
+}
+.md-typeset .hl-split {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 0.05rem solid var(--md-default-fg-color--lightest);
+}
+.md-typeset .hl-split h2 {
+  margin: 0 0 0.8rem;
+}
+.md-typeset .hl-split p:first-child {
+  margin-top: 0;
+}
+.md-typeset .hl-split p:last-child {
+  margin-bottom: 0;
+}
+@media screen and (min-width: 60em) {
+  .md-typeset .hl-split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+  .md-typeset .hl-split h2 {
+    margin-bottom: 0;
+  }
+}
+.md-typeset .grid.cards a:has(> .twemoji) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
 }

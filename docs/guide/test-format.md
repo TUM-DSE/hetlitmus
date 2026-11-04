@@ -1,7 +1,8 @@
 # Test format
 
 A heterogeneous test uses the herdtools7 litmus format with the architecture `Het`. Each column is
-one proc whose header names the device it runs on.
+one proc whose header names the device it runs on. For example, this
+[message-passing](#message-passing-mp) test has one proc on the GPU and one on the CPU:
 
 ```
 Het MP-gc-gpu-plain.fsc
