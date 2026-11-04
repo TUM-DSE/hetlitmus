@@ -1,5 +1,11 @@
 # Generating tests
 
+!!! info ""
+
+    The [ready-made corpora](corpora.md) cover most uses. To test a new shape, it is recommended to
+    [add it to the corpus generator](corpora.md#adding-a-shape), which produces all its variants.
+    This page explains the underlying tool, `hetgen7`, which generates a single custom test.
+
 `hetgen7` creates a heterogeneous test from a [relaxation cycle](#cycles), given once per device.
 
 ```bash

@@ -7,13 +7,13 @@
     How a `Het` litmus test is laid out: device columns, LISA instructions, scopes, the final
     condition.
 
--   __[Generating tests](generating-tests.md)__
-
-    Writing a cycle once per device and placing procs on the CPU or the GPU with `hetgen7`.
-
 -   __[Test corpora](corpora.md)__
 
     The three generated corpora, how test names are built, and how to add a shape.
+
+-   __[Generating tests](generating-tests.md)__
+
+    Writing a cycle once per device and placing procs on the CPU or the GPU with `hetgen7`.
 
 -   __[Compiling tests](compiling-tests.md)__
 

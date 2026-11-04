@@ -1,38 +1,5 @@
 # Compiling tests
 
-`litmus7` turns a `Het` test into one self-contained test program directory.
-
-```bash
-mkdir -p out
-litmus7 -set-libdir litmus/libdir -gpu-target cuda -o out MP.litmus
-```
-
-`-gpu-target` is mandatory: `cuda` for NVIDIA, `hip` for AMD. The output
-directory must exist.
-
-See the [`litmus7` reference](../reference/litmus7.md) for all its command-line options.
-
-## Building the executable
-
-=== "CUDA"
-
-    ```bash
-    cd out/MP
-    make cuda-bin CUDA_ARCH=sm_90
-    ```
-
-=== "HIP"
-
-    ```bash
-    cd out/MP
-    make hip-bin HIP_ARCH=gfx942
-    ```
-
-The Makefile's targets and variables, including build-time settings, are listed in the
-[litmus7 reference](../reference/litmus7.md#test-program-makefile).
-
-One-sided GPU fences (`f[acquire,...]`, `f[release,...]`) need sm_90 or later in CUDA.
-
 ## Compiling a whole corpus
 
 First generate the corpora with `make hetlitmus-corpus-gen`, as described in
@@ -56,3 +23,39 @@ attributes that decide how CPU and GPU share memory. `build.sh` uses that archit
 `emit-het.sh` runs `litmus7` once per test into `$RESULTS/emit`. `build.sh` runs `make clean` and
 the link target in every test program directory. Both take `--tests` with a comma-separated list or a
 file of names to work on a subset.
+
+## Compiling a single test
+
+To compile one test by hand, for example while developing a new shape, call `litmus7` directly. It
+turns a `Het` test into one self-contained test program directory.
+
+```bash
+mkdir -p out
+litmus7 -set-libdir litmus/libdir -gpu-target cuda -o out MP.litmus
+```
+
+`-gpu-target` is mandatory: `cuda` for NVIDIA, `hip` for AMD. The output
+directory must exist.
+
+See the [`litmus7` reference](../reference/litmus7.md) for all its command-line options.
+
+### Building the executable
+
+=== "CUDA"
+
+    ```bash
+    cd out/MP
+    make cuda-bin CUDA_ARCH=sm_90
+    ```
+
+=== "HIP"
+
+    ```bash
+    cd out/MP
+    make hip-bin HIP_ARCH=gfx942
+    ```
+
+The Makefile's targets and variables, including build-time settings, are listed in the
+[litmus7 reference](../reference/litmus7.md#test-program-makefile).
+
+One-sided GPU fences (`f[acquire,...]`, `f[release,...]`) need sm_90 or later in CUDA.
